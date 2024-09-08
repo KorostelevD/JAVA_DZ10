@@ -17,32 +17,6 @@ public class UserDAO {
                 .buildSessionFactory();
     }
 
-        /*public Integer save(User user){
-        Session session = factory.getCurrentSession();
-        Integer saved = null;
-            try {
-                Transaction transaction = session.beginTransaction();
-                saved = (Integer) session.save(user);
-                transaction.commit();
-            } finally {
-                session.close();
-            }
-            return saved;
-    }
-
-    public User saveMerge(User user){
-        Session session = factory.getCurrentSession();
-        User saved = null;
-        try {
-            Transaction transaction = session.beginTransaction();
-            saved = session.merge(user);
-            transaction.commit();
-        } finally {
-            session.close();
-        }
-        return saved;
-    }*/
-
     //Зберігання в базі даних
     public User saveTransaction(User user){
         Session session = factory.openSession();
