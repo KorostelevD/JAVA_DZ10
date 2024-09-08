@@ -20,6 +20,10 @@ public class  Main {
       User user3 = new User(3,"Білозір","Оксана", User.Gender.FEMALE,
               LocalDateTime.now());
       userDAO.saveTransaction(user3);
+      User user4 = new User(4,"Манько","Олена", User.Gender.FEMALE,
+              LocalDateTime.now());
+      userDAO.saveTransaction(user4);
+
 
       // Отримуємо всіх користувачів із бази даних
       List<User> users = userDAO.getAllUsers();
@@ -39,10 +43,27 @@ public class  Main {
       //Оновлення користувача
       user1.setSurname("Петренко");
       user1.setAuthorizationTime(LocalDateTime.now());
-
       //Викликаємо метод для оновлення користувача
       userDAO.updateUser(user1);
       System.out.println("Користувач оновлений: " + user1);
 
+      // Виклик методу видалення користувача за ID
+      userDAO.deleteUserById(3);
+      System.out.println();
+      System.out.println("Користувача ID = " + 3 + " було видалено");
+      System.out.println();
+
+      //ОНОВЛЕНИЙ СПИСОК КОРИСТУВАЧІВ З БАЗИ ДАНИХ
+       users = userDAO.getAllUsers();
+      // Виводимо всіх користувачів
+      if (users != null && !users.isEmpty()) {
+         System.out.println();
+         System.out.println("Список користувачів після оновлення та видалення:");
+         for (User user : users) {
+            System.out.println(user);
+         }
+      } else {
+         System.out.println("Користувачів у базі немає");
+      }
    }
 }

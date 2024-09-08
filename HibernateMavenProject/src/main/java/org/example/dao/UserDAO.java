@@ -48,7 +48,7 @@ public class UserDAO {
         }
         return users;
     }
-    ///////////////////////////////
+    /////////////////////////////  ОНОВЛЕННЯ  ////////////////////////
     public void updateUser(User user) {
         Session session = factory.openSession();
         Transaction transaction = null;
@@ -65,19 +65,30 @@ public class UserDAO {
             session.close();  // Завжди закриваємо сесію після роботи
         }
     }
-    ////////////////////////
+    //////////////////////// ВИДАЛЕННЯ ///////////////////
 
-
-    public User findById(Integer id){
-        Session session = factory.getCurrentSession();
-        User user = null;
-        try{
-            session.beginTransaction();
-            user = session.get(User.class, id);
-            session.getTransaction().commit();
-        }finally {
-            session.close();
+    public void deleteUserById(int userId) {
+        Session session = factory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            User user = session.get(User.class, userId);  // Отримуємо користувача за ID
+            if (user != null) {
+                session.delete(user);  // Видаляємо користувача
+                transaction.commit();
+            } else {
+                System.out.println("User with id " + userId + " not found.");
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();  // Якщо сталася помилка, відкочуємо транзакцію
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();  // Закриваємо сесію після роботи
         }
-        return user;
     }
+
+
+
 }
