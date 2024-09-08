@@ -31,8 +31,6 @@ public class UserDAO {
         return saved;
     }
 
-    ///////////////////////////
-
     // Метод для отримання всіх користувачів з бази даних
     public List<User> getAllUsers() {
         Session session = factory.openSession();
@@ -74,7 +72,7 @@ public class UserDAO {
             transaction = session.beginTransaction();
             User user = session.get(User.class, userId);  // Отримуємо користувача за ID
             if (user != null) {
-                session.delete(user);  // Видаляємо користувача
+                session.remove(user);  // Видаляємо користувача
                 transaction.commit();
             } else {
                 System.out.println("User with id " + userId + " not found.");
@@ -88,7 +86,5 @@ public class UserDAO {
             session.close();  // Закриваємо сесію після роботи
         }
     }
-
-
 
 }
